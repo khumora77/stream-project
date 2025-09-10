@@ -1,6 +1,6 @@
 'use client'
 import { useTheme } from "next-themes";
-import React, { Children } from "react";
+import React from "react";
 
 import { ClerkProvider as Clerk } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
