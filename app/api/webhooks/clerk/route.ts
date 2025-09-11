@@ -6,8 +6,6 @@ export async function POST(req: NextRequest) {
   try {
     const evt = await verifyWebhook(req);
 
-    // Do something with payload
-    // For this guide, log payload to console
     const { id } = evt.data;
     const eventType = evt.type;
     console.log(
@@ -16,7 +14,7 @@ export async function POST(req: NextRequest) {
     console.log("Webhook payload:", evt.data);
     if (eventType === "user.created") {
       if (!evt.data.username || evt.data.username.trim() === "") {
-        return new Response("username is required", { status: 400 });
+        return new Response("Username is required", { status: 400 });
       }
       await db.user.create({
         data: {
@@ -24,7 +22,7 @@ export async function POST(req: NextRequest) {
           username: evt.data.username,
           avatar: evt.data.image_url,
           fullName: `${evt.data.first_name} ${evt.data.last_name}`,
-          bio: "Bio is not provided",
+          bio: "Bio is not provided!!!",
         },
       });
     }
@@ -32,10 +30,10 @@ export async function POST(req: NextRequest) {
       await db.user.update({
         where: { clerkId: evt.data.id },
         data: {
-          username: evt.data.id || "default_username",
+          username: evt.data.username || "default_username",
           avatar: evt.data.image_url,
           fullName: `${evt.data.first_name} ${evt.data.last_name}`,
-          bio: "Bio is not provided",
+          bio: "Bio is not provided!!!",
         },
       });
     }
